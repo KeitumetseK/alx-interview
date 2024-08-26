@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 def validUTF8(data):
     # Number of bytes in the current UTF-8 character
     num_bytes = 0
@@ -7,6 +9,10 @@ def validUTF8(data):
     mask2 = 1 << 6  # 01000000
 
     for num in data:
+        # Ensure that the byte is within the valid range (0-255)
+        if num > 255:
+            return False
+        
         mask = 1 << 7
         if num_bytes == 0:
             # Determine the number of bytes in the UTF-8 character
@@ -31,9 +37,4 @@ def validUTF8(data):
     
     # All characters must be processed
     return num_bytes == 0
-
-# Test cases
-print(validUTF8([65]))  # True
-print(validUTF8([80, 121, 116, 104, 111, 110, 32, 105, 115, 32, 99, 111, 111, 108, 33]))  # True
-print(validUTF8([229, 65, 127, 256]))  # False
 
