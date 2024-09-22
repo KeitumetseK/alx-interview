@@ -10,19 +10,20 @@ def makeChange(coins, total):
     Returns:
         int: Fewest number of coins needed, or -1 if it's not possible.
     """
-    # If the total is 0 or less, return 0 (no coins are needed)
     if total <= 0:
         return 0
 
-    # Initialize the dp array with a large number representing unreachable states
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0  # Base case: No coins are needed to form a total of 0
+    # Sort coins in descending order
+    coins.sort(reverse=True)
+    num_coins = 0
+    remaining_amount = total
 
-    # Iterate through each coin and update dp
     for coin in coins:
-        for i in range(coin, total + 1):
-            dp[i] = min(dp[i], dp[i - coin] + 1)
+        if remaining_amount == 0:
+            break
+        if coin <= remaining_amount:
+            num_coins += remaining_amount // coin
+            remaining_amount %= coin
 
-    # If dp[total] is still infinity, it means we can't form the total with the given coins
-    return dp[total] if dp[total] != float('inf') else -1
+    return num_coins if remaining_amount == 0 else -1
 
