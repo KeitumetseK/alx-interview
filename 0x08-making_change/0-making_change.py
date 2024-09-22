@@ -10,24 +10,19 @@ def makeChange(coins, total):
     Returns:
         int: Fewest number of coins needed, or -1 if it's not possible.
     """
-    # Edge case: if total is 0 or less, return 0 (no coins needed)
+    # If the total is 0 or less, return 0 (no coins are needed)
     if total <= 0:
         return 0
 
-    # Sort coins in descending order to attempt larger denominations first (greedy-like)
-    coins.sort(reverse=True)
-
-    # Initialize DP array to infinity, representing an unattainable total
+    # Initialize the dp array with a large number representing unreachable states
     dp = [float('inf')] * (total + 1)
-    dp[0] = 0  # No coins are needed to make a total of 0
+    dp[0] = 0  # Base case: No coins are needed to form a total of 0
 
-    # Iterate through each coin denomination
+    # Iterate through each coin and update dp
     for coin in coins:
-        # Update dp for every value from the coin to the total
         for i in range(coin, total + 1):
-            if dp[i - coin] != float('inf'):  # Only update if a valid solution exists for dp[i - coin]
-                dp[i] = min(dp[i], dp[i - coin] + 1)
+            dp[i] = min(dp[i], dp[i - coin] + 1)
 
-    # If dp[total] is still infinity, it means the total cannot be made with the given coins
+    # If dp[total] is still infinity, it means we can't form the total with the given coins
     return dp[total] if dp[total] != float('inf') else -1
 
