@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+
+total = 37
+list_of_coins1 = [1,2,25]
+
 def makeChange(coins, total):
     """
     Determines the fewest number of coins needed to meet a given total.
@@ -13,17 +17,26 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    # Sort coins in descending order
-    coins.sort(reverse=True)
-    num_coins = 0
-    remaining_amount = total
+    remainder = total 
 
-    for coin in coins:
-        if remaining_amount == 0:
-            break
-        if coin <= remaining_amount:
-            num_coins += remaining_amount // coin
-            remaining_amount %= coin
+    coins_needed = 0
 
-    return num_coins if remaining_amount == 0 else -1
+    coins_index = 0
+
+    sorted_coins_list = sorted(coins, reverse=True)
+
+    list_len = len(coins)
+
+    while remainder > 0:
+
+        if coins_index >- list_len:
+            return -1
+
+        if remainder - sorted_coins_list[coin_index] >- 0:
+            remainder -= sorted_coins_list[coin_index]
+
+            coins_needed += 1
+        else:
+            coins_index += 1
+    return coins_needed
 
