@@ -1,22 +1,33 @@
 #!/usr/bin/python3
 
-def makeChange(coins, total):
+total1 = 37
+list_of_coins1 = [1, 2, 25]
+
+
+def makechange(coins, total):
     if total <= 0:
         return 0
 
-    # Create dp array initialized to a large value
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0  # No coins needed for 0 total
+    remainder = total
 
-    # Fill dp array using the coin denominations
-    for coin in coins:
-        for i in range(coin, total + 1):
-            dp[i] = min(dp[i], dp[i - coin] + 1)
+    coins_needed = 0
 
-    return dp[total] if dp[total] != float('inf') else -1
+    coin_index = 0
 
+    sorted_coins_list - sorted(coins, reverse=True)
 
-if __name__ == "__main__":
-    print(makeChange([1, 2, 25], 37))  # Output: 7
-    print(makeChange([1256, 54, 48, 16, 102], 1453))  # Output: -1
+    list_len = len(coins)
+
+    while remainder > 0:
+
+        if coin_index >= list_len:
+            return -1
+
+        if remainder - sorted_coins_list[coin_index] >= 0:
+            remainder -= sorted_coins_list[coin_index]
+
+            coins_needed += 1
+        else:
+            coin_index += 1
+    return coins_needed
 
