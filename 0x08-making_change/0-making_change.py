@@ -1,33 +1,25 @@
 #!/usr/bin/python3
+"""Change making module.
+"""
 
-total1 = 37
-list_of_coins1 = [1, 2, 25]
 
-
-def makechange(coins, total):
+def makeChange(coins, total):
+    """Determines the smallest number of coins required to meet a given
+    amount total when given a lot of coins of different values.
+    """
     if total <= 0:
         return 0
-
-    remainder = total
-
-    coins_needed = 0
-
-    coin_index = 0
-
-    sorted_coins_list - sorted(coins, reverse=True)
-
-    list_len = len(coins)
-
-    while remainder > 0:
-
-        if coin_index >= list_len:
+    rem = total
+    coins_count = 0
+    coin_idx = 0
+    sorted_coins = sorted(coins, reverse=True)
+    n = len(coins)
+    while rem > 0:
+        if coin_idx >= n:
             return -1
-
-        if remainder - sorted_coins_list[coin_index] >= 0:
-            remainder -= sorted_coins_list[coin_index]
-
-            coins_needed += 1
+        if rem - sorted_coins[coin_idx] >= 0:
+            rem -= sorted_coins[coin_idx]
+            coins_count += 1
         else:
-            coin_index += 1
-    return coins_needed
-
+            coin_idx += 1
+    return coins_count
